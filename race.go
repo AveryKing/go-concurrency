@@ -5,27 +5,27 @@ import (
 	"time"
 )
 
-var slc = make([]string, 0)
+var balance = 0
 
-func fun1() {
-	slc = append(slc, "x")
+func calc(toModify *int, amount int) int {
+	return *toModify + amount
 }
 
-func fun2() {
-	slc = append(slc, "o")
+func write(toWrite *int, value int) {
+	*toWrite += value
+}
+
+func deposit(amount int) {
+	write(&balance, calc(&balance, amount))
+	fmt.Printf("new balance: %d\n", balance)
 }
 
 func main() {
-	go fun1()
-	go fun1()
-	go fun1()
-	go fun1()
-	go fun2()
-	go fun2()
-	go fun2()
-	go fun2()
-	time.Sleep(time.Second * 5)
-	for _, x := range slc {
-		fmt.Println(x)
-	}
+	go deposit(10)
+	go deposit(10)
+	go deposit(10)
+	go deposit(10)
+	go deposit(10)
+	time.Sleep(time.Second * 1)
+
 }
