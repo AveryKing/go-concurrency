@@ -2,26 +2,23 @@ package main
 
 import (
 	"fmt"
-	"sync"
 	"time"
 )
 
-var wg sync.WaitGroup
+func main() {
+	start := time.Now()
+	defer func() {
+		fmt.Println(time.Since(start))
+	}()
 
-func say(s string) {
-	for i := 0; i < 3; i++ {
-		fmt.Println(s)
-		time.Sleep(time.Millisecond * 100)
+	evilNinjas := []string{"Adam", "Avery", "Tom", "Ryan"}
+
+	for _, evilNinja := range evilNinjas {
+		attack(evilNinja)
 	}
-	wg.Done()
 }
 
-func main() {
-	wg.Add(1)
-	go say("Hey")
-	wg.Add(1)
-	go say("There")
-	wg.Add(1)
-	go say("HI")
-	wg.Wait()
+func attack(target string) {
+	fmt.Println("Throwing ninja stars at ", target)
+	time.Sleep(time.Second)
 }

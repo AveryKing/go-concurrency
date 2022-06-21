@@ -16,16 +16,16 @@ func write(toWrite *int, value int) {
 }
 
 func deposit(amount int) {
-	write(&balance, calc(&balance, amount))
+	newVal := calc(&balance, amount)
+	go write(&balance, newVal)
 	fmt.Printf("new balance: %d\n", balance)
 }
 
-func main() {
-	go deposit(10)
+func race() {
 	go deposit(10)
 	go deposit(10)
 	go deposit(10)
 	go deposit(10)
 	time.Sleep(time.Second * 1)
-
+	fmt.Println(balance)
 }
