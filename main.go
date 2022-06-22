@@ -13,16 +13,13 @@ func main() {
 
 	evilNinjas := []string{"Adam", "Avery", "Tom", "Ryan"}
 
-	smokeSignal := make(chan bool)
-
 	for _, evilNinja := range evilNinjas {
-		go attack(evilNinja, smokeSignal)
+		go attack(evilNinja)
 	}
 
-	fmt.Println(<-smokeSignal)
+	time.Sleep(time.Second)
 }
 
-func attack(target string, defeated chan bool) {
+func attack(target string) {
 	fmt.Println("Throwing ninja stars at ", target)
-	defeated <- true
 }
