@@ -14,8 +14,10 @@ func main() {
 	evilNinjas := []string{"Adam", "Avery", "Tom", "Ryan"}
 
 	for _, evilNinja := range evilNinjas {
-		attack(evilNinja)
+		go attack(evilNinja)
 	}
+
+	time.Sleep(time.Second)
 }
 
 func attack(target string) {
